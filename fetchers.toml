@@ -1,0 +1,8 @@
+# Companion fetcher pins for the imports this plugin emits
+# (JOBS recipe-declared-fetchers design §7). Bundled into the plugin artifact
+# root AND its fetch output; the JOBS pin stage injects these as FetcherDef
+# into every emitted import. Bump together with the plugin.
+[[fetcher]]
+name   = "gomod"
+url    = "https://github.com/jobs-build/fetcher-gomod/archive/dcdecf617ae3be69a136452c8fda56e865a40d87.tar.gz"
+sha256 = "174eec4f2929ed2608a11f9b18683ab9eb64e3811682c92acedc63dd24853143"
