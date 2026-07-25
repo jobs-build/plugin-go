@@ -3,8 +3,16 @@
 The JOBS **go-build plugin** (`goplugin`) as a standalone, JOBS-buildable repo.
 
 It is a network-free, statically-linked CBOR-stdio subprocess (build.md §6): it reads
-`{call:{go_sum:<bytes>}, source}` on stdin, turns each `go.sum` entry into a `gomod`
+`{call:{go_sum:<bytes>}, source, dir}` on stdin, turns each `go.sum` entry into a `gomod`
 import spec, and writes the resulting `[{path, version, input}]` array on stdout.
+
+**Monorepo mode** (sibling-sources design §12.1): when the recipe also passes a
+`go_mod` (and/or `go_work`) kwarg, the plugin parses the manifest's `replace`/`use`
+directives for RELATIVE targets (`./x`, `../x` — Go honors replaces only in the main
+module, so the consumer's manifest enumerates the whole local sibling closure),
+resolves them against `dir` (the consumer package's dir within the mounted source),
+and responds with `{modules: <the array above>, sources: ["//root/relative", ...]}`
+instead. Without the kwarg the bare-array response is byte-identical to before.
 
 This repo is consumed by the JOBS fetcher manifest (`fetchers.toml`, entry `goplugin`):
 JOBS fetches a pinned tarball of this repo and builds it with `BUILD.jobs` — fully
