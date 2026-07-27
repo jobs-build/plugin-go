@@ -14,6 +14,17 @@ resolves them against `dir` (the consumer package's dir within the mounted sourc
 and responds with `{modules: <the array above>, sources: ["//root/relative", ...]}`
 instead. Without the kwarg the bare-array response is byte-identical to before.
 
+**Closure mode** (source-closure design §8): a `go_closure = ["<entry-dir>", ...]`
+kwarg (dir-relative entry package dirs, e.g. `["."]`; requires `go_mod`) makes the
+plugin walk the transitive local import graph — pure Go, no toolchain: every `.go`
+file's imports count, including build-tag-ignored and `_test.go` files — and add a
+`closure` key to the monorepo response: the `//`-rooted COMPLETE cover (reached
+package dirs as recursive covers, so `//go:embed`/cgo/asm/`testdata` ride along;
+module-root packages enumerate files + embed globs + `testdata/`; each involved
+module's `go.mod`/`go.sum`; `go.work(.sum)` at the consumer dir). The recipe
+forwards it into `build() closure=` for precise KP cutoff — the build dir is not
+auto-seeded.
+
 This repo is consumed by the JOBS fetcher manifest (`fetchers.toml`, entry `goplugin`):
 JOBS fetches a pinned tarball of this repo and builds it with `BUILD.jobs` — fully
 offline, using only the Go toolchain and the seeded shell (deps are vendored, so no
