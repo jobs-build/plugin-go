@@ -1,5 +1,9 @@
 # plugin-go
 
+<p align="center">
+  <img src="docs/assets/jobs-logo.jpg" alt="JOBS — Jonas' Own Build System" width="520">
+</p>
+
 The JOBS **go-build plugin** (`goplugin`) as a standalone, JOBS-buildable repo.
 
 It is a network-free, statically-linked CBOR-stdio subprocess (build.md §6): it reads
