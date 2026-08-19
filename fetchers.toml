@@ -4,5 +4,5 @@
 # into every emitted import. Bump together with the plugin.
 [[fetcher]]
 name   = "gomod"
-url    = "https://github.com/jobs-build/fetcher-gomod/archive/dcdecf617ae3be69a136452c8fda56e865a40d87.tar.gz"
-sha256 = "174eec4f2929ed2608a11f9b18683ab9eb64e3811682c92acedc63dd24853143"
+url    = "https://github.com/jobs-build/fetcher-gomod/archive/491c7ccd3630ac013249c05e5020f26155bab314.tar.gz"
+sha256 = "48e343d7188c2f63b06464f23cc3b5ae8ac75c2f5560dc53d91f3462ff66382a"
